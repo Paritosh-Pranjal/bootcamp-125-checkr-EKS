@@ -1,0 +1,26 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: COURTSEARCHES-SERVICE
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://18.188.13.120:30001/Checkr
+    username: root
+    password: Bootcamp@125!
+
+  flyway:
+    baseline-on-migrate: true
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: false
+    hostname: localhost

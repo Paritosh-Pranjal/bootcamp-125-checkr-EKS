@@ -1,0 +1,167 @@
+name: SonarCloud Backend
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - ".github/workflows/backendBuild.yml"
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  adverseactionservice:
+    if: ( startsWith(github.head_ref, 'BE_') && github.event.pull_request.merged == false ) || ( github.event_name == 'push' )
+    name: BE Adverse Action Service Sonar Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: backend/adverseAction-service
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.ADVERSE_ACTION_SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.verbose=true -Dsonar.projectName=bootcamp-be-125-adverseAction-service -Dsonar.projectKey=zemoso-int_bootcamp-be-125-adverseaction-service -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml -Pcoverage
+
+  userservice:
+    if: ( startsWith(github.head_ref, 'BE_') && github.event.pull_request.merged == false ) || ( github.event_name == 'push' )
+    name: BE User Service Sonar Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: backend/user-service
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.USER_SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.verbose=true -Dsonar.projectName=bootcamp-be-125-user-service -Dsonar.projectKey=zemoso-int_bootcamp-be-125-user-service -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml -Pcoverage
+
+  candidateservice:
+    if: ( startsWith(github.head_ref, 'BE_') && github.event.pull_request.merged == false ) || ( github.event_name == 'push' )
+    name: BE Candidate Service Sonar Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: backend/candidate-service
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.CANDIDATE_SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.verbose=true -Dsonar.projectName=bootcamp-be-125-candidate-service -Dsonar.projectKey=zemoso-int_bootcamp-be-125-candidate-service -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml -Pcoverage
+
+  courtsearchesservice:
+    if: ( startsWith(github.head_ref, 'BE_') && github.event.pull_request.merged == false ) || ( github.event_name == 'push' )
+    name: BE Court Searches Service Sonar Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: backend/courtSearches-service
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.COURT_SEARCHES_SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.verbose=true -Dsonar.projectName=bootcamp-be-125-courtSearches-service -Dsonar.projectKey=zemoso-int_bootcamp-be-125-courtsearches-service -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml -Pcoverage

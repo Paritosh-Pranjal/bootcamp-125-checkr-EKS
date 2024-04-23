@@ -60,4 +60,6 @@ jobs:
         with:
           context: backend/${{ matrix.services }}
           push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${{ matrix.services }}:v${{ github.run_number }}
+          tags: |
+            SERVICE_NAME_LOWER=$(echo ${{ matrix.services }} | tr '[:upper:]' '[:lower:]')
+            ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${SERVICE_NAME_LOWER}:v${{ github.run_number }}

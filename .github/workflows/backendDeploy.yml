@@ -78,4 +78,4 @@ jobs:
           SERVICE_NAME: ${{ matrix.services }}
         run: |
           SERVICE_NAME_LOWER=$(echo  $SERVICE_NAME | tr '[:upper:]' '[:lower:]')
-          kubectl set image deployment/be-${SERVICE_NAME_LOWER}-deployment bc128-backend-${SERVICE_NAME_LOWER}=ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${SERVICE_NAME_LOWER}:v${{ github.run_number }}
+          kubectl set image deployment/be-${SERVICE_NAME_LOWER}-deployment bc125-backend-${SERVICE_NAME_LOWER}=ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${SERVICE_NAME_LOWER}:v${{ github.run_number }}

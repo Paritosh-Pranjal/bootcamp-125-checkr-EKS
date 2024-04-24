@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: checkr-frontend
-        image: ghcr.io/paritosh-pranjal/bc125-fe-eks:v1
+        image: ghcr.io/paritosh-pranjal/bc125-fe-eks:v2
         ports:
         - containerPort: 80
         env:

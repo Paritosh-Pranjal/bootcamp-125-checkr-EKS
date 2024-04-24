@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = { "http://localhost:3000",
-        "https://bc125fe.spcluster.tk" }, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
+        "*" }, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping(ApiEndpoints.USERS_BASE_PATH)
 public class SignInController {

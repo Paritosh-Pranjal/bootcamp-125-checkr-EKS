@@ -8,6 +8,8 @@ on:
         paths:
             - .github/workflows/frontendDeploy.yml
             - frontend/**
+permissions: 
+  packages: write
 
 jobs:
     build:
@@ -58,13 +60,6 @@ jobs:
                 context: ./frontend
                 push: true
                 tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-fe-eks:v${{ github.run_number }}
-
-            - name: Push the docker image to ghcr
-              uses: docker/build-push-action@v4
-              with:
-                context: ./frontend
-                push: true
-                tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bc128-fe-eks:v${{ github.run_number }}
 
             - name: configure aws
               uses: aws-actions/configure-aws-credentials@v2

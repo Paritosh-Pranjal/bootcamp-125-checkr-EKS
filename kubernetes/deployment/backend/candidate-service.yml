@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: be-candidate-service-deployment
+   labels:
+      type: candidate-service-deployment
+      app: backend-us-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: candidate-service
+  template:
+    metadata:
+      name: candidate-service-pod
+      labels:
+        type: candidate-service
+    spec:
+      containers:
+      - name: bc125-backend-candidate-service
+        image: ghcr.io/paritosh-pranjal/bc125-be-eks-candidate-service:v4
+        ports:
+        - containerPort: 9002
+        env:
+          - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            value: http://service-registry-svc:8761/eureka/
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: candidate-service-svc
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://3.128.91.25:31592/Checkr
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: username
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                  name: database-secret
+                  key: password
+          - name: SPRING_FLYWAY_URL
+            value: jdbc:mysql://3.128.91.25:31592/Checkr 
+          - name: SPRING_FLYWAY_USER
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: username
+          - name: SPRING_FLYWAY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                  name: database-secret
+                  key: password
+      imagePullSecrets: 
+      - name: ghcr-secret

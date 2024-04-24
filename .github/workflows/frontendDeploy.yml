@@ -29,6 +29,7 @@ jobs:
 
             - name: Retrieve the env vars
               run: echo "${{ secrets.FE_ENV }}" > .env
+              
 
             - name: Cache Node Modules
               uses: actions/cache@v3

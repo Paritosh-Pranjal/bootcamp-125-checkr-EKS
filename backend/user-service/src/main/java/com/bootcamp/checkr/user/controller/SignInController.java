@@ -6,8 +6,7 @@ import com.bootcamp.checkr.user.util.ApiEndpoints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = { "http://localhost:3000",
-        "*" }, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = {"*"}, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping(ApiEndpoints.USERS_BASE_PATH)
 public class SignInController {

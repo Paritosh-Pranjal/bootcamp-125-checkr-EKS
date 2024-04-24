@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: frontend-deployment-bc-125
+   labels:
+      type: react-deployment
+      app: fe-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: frontend
+  template:
+    metadata:
+      name: frontend-pod
+      labels:
+        type: frontend
+    spec:
+      containers:
+      - name: checkr-frontend
+        image: ghcr.io/paritosh-pranjal/bc125-fe-eks:v2
+        ports:
+        - containerPort: 80
+        env:
+          - name: AUTH0_DOMAIN
+            value: dev-ydpqs1wgbdxfupsv.us.auth0.com
+          - name: AUTH0_CLIENT_ID
+            value: fUcBqENp4a9FDYc6cefnN6uitOQZ6i8X
+          - name: API_URL
+            value:  https://a00bd8cd5b52246728bf276613cd50ab-eecb6a8444d66881.elb.us-east-2.amazonaws.com/api/v1
+      imagePullSecrets: 
+      - name: ghcr-secret

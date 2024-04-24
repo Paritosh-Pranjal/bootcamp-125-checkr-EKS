@@ -7,9 +7,10 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://18.188.13.120:30001/Checkr
+    url: jdbc:mysql://3.128.91.25:31200/Checkr
     username: root
-    password: Bootcamp@125!
+    password: Bootcamp@125
+
 
   jpa:
     hibernate:

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: be-adverseaction-service-deployment
+   labels:
+      type: adverseaction-service-deployment
+      app: backend-us-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: adverseaction-service
+  template:
+    metadata:
+      name: adverseaction-service-pod
+      labels:
+        type: adverseaction-service
+    spec:
+      containers:
+      - name: bc125-backend-adverseaction-service
+        image: ghcr.io/paritosh-pranjal/bc125-be-eks-adverseaction-service:v4
+        ports:
+        - containerPort: 9004
+        env:
+          - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            value: http://service-registry-svc:8761/eureka/
+          - name: EUREKA_INSTANCE_HOSTNAME
+            value: adverseaction-service-svc
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://3.128.91.25:31200/Checkr
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: username
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                  name: database-secret
+                  key: password
+          - name: SPRING_FLYWAY_URL
+            value: jdbc:mysql://3.128.91.25:31200/Checkr 
+          - name: SPRING_FLYWAY_USER
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: username
+          - name: SPRING_FLYWAY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                  name: database-secret
+                  key: password
+      imagePullSecrets: 
+      - name: ghcr-secret

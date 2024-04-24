@@ -9,7 +9,7 @@ import com.bootcamp.checkr.user.util.ApiEndpoints;
 import java.util.List;
 
 @CrossOrigin(origins = { "http://localhost:3000",
-        "https://bc125fe.spcluster.tk" }, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
+        "https://frontend-checkr.play-nooax-ai-with.me/" }, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping(ApiEndpoints.USERS_BASE_PATH)
 public class UserController {

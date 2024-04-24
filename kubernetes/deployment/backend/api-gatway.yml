@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: bc125-backend-api-gateway
-        image: ghcr.io/paritosh-pranjal/bc125-be-eks-api-gateway:v11
+        image: ghcr.io/paritosh-pranjal/bc125-be-eks-api-gateway:v16
         ports:
         - containerPort: 9191
         env:

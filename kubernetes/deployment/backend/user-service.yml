@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: bc125-backend-user-service
-        image: ghcr.io/paritosh-pranjal/bc125-be-eks-user-service:v4
+        image: ghcr.io/paritosh-pranjal/bc125-be-eks-user-service:v7
         ports:
         - containerPort: 9001
         env:

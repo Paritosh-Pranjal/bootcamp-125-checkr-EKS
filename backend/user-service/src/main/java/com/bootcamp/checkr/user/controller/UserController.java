@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.bootcamp.checkr.user.util.ApiEndpoints;
 import java.util.List;
 
-@CrossOrigin(origins = {"*"}, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:3000",
+        "https://frontend-checkr.play-nooax-ai-with.me/" }, exposedHeaders = "Access-Control-Allow-Origin", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping(ApiEndpoints.USERS_BASE_PATH)
 public class UserController {

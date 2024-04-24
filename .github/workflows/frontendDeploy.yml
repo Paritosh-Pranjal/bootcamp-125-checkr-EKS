@@ -58,3 +58,24 @@ jobs:
                 context: ./frontend
                 push: true
                 tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-fe-eks:v${{ github.run_number }}
+
+            - name: Push the docker image to ghcr
+              uses: docker/build-push-action@v4
+              with:
+                context: ./frontend
+                push: true
+                tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bc128-fe-eks:v${{ github.run_number }}
+
+            - name: configure aws
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region:  ${{secrets.AWS_EKS_REGION}}
+                    
+            - name: update kubeconfig
+              run: aws eks update-kubeconfig --name ${{ secrets.CLUSTER_NAME }} --region ${{ secrets.AWS_EKS_REGION }}
+
+
+            - name: update the frontend image
+              run: kubectl set image deployment/frontend-deployment-bc-125 checkr-frontend=ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-fe-eks:v${{ github.run_number }}

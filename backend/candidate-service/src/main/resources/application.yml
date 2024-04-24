@@ -7,7 +7,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://3.128.91.25:31592/Checkr
+    url: jdbc:mysql://3.128.91.25:31200/Checkr
     username: root
     password: Bootcamp@125
 

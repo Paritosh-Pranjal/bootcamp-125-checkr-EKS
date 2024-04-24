@@ -60,7 +60,20 @@ jobs:
             SERVICE_NAME: ${{ matrix.services }}
         run: |
             SERVICE_NAME_LOWER=$(echo  $SERVICE_NAME | tr '[:upper:]' '[:lower:]')
-            echo $SERVICE_NAME_LOWER
             docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${SERVICE_NAME_LOWER}:v${{ github.run_number }} .
             docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${SERVICE_NAME_LOWER}:v${{ github.run_number }}
-    
+
+      - name: configure aws
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:  ${{secrets.AWS_EKS_REGION}}
+        
+      - name: adding eks-cluster
+        run: aws eks update-kubeconfig --name ${{ secrets.CLUSTER_NAME }} --region ${{secrets.AWS_EKS_REGION}}
+
+      - name: Deploy the service on EKS
+        run: |
+          SERVICE_NAME_LOWER=$(echo  $SERVICE_NAME | tr '[:upper:]' '[:lower:]')
+          kubectl set image deployment/be-${SERVICE_NAME_LOWER}-deployment bc128-backend-${SERVICE_NAME_LOWER}=ghcr.io/${{ secrets.GHCR_USERNAME }}/bc125-be-eks-${SERVICE_NAME_LOWER}:v${{ github.run_number }}

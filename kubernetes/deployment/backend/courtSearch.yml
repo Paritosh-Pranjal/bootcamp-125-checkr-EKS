@@ -27,7 +27,7 @@ spec:
           - name: EUREKA_INSTANCE_HOSTNAME
             value: courtsearches-service-svc
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://3.128.91.25:31592/Checkr
+            value: jdbc:mysql://3.128.91.25:31200/Checkr
           - name: SPRING_DATASOURCE_USERNAME
             valueFrom:
               secretKeyRef:
@@ -39,7 +39,7 @@ spec:
                   name: database-secret
                   key: password
           - name: SPRING_FLYWAY_URL
-            value: jdbc:mysql://3.128.91.25:31592/Checkr 
+            value: jdbc:mysql://3.128.91.25:31200/Checkr 
           - name: SPRING_FLYWAY_USER
             valueFrom:
               secretKeyRef:
